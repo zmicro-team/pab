@@ -17,7 +17,7 @@ type CredentialResponse struct {
 }
 
 func (c *Client) GetCredentialsToken(ctx context.Context) (*CredentialResponse, error) {
-	mp := map[string]interface{}{
+	mp := map[string]any{
 		"ApplicationID": c.config.AppId,
 		"RandomNumber":  extrand.Number(6),
 		"SDKType":       "api",

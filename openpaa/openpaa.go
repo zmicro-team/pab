@@ -109,6 +109,7 @@ func New(config Config, opts ...Option) (*Client, error) {
 	)
 	return client, nil
 }
+func (c *Client) GetConfig() *Config { return &c.config }
 
 // SetLogger 设置自定义日志
 func (c *Client) SetLogger(l plog.Logger) *Client {
@@ -164,10 +165,10 @@ func (c *Client) RefreshToken(ctx context.Context) (string, error) {
 	return tk.(string), nil
 }
 
-func (c *Client) getAccessToken() string  { return c.accessToken.Load().(string) }
+func (c *Client) GetAccessToken() string  { return c.accessToken.Load().(string) }
 func (c *Client) setAccessToken(s string) { c.accessToken.Store(s) }
 
-func (c *Client) testAccessToken() bool { return c.getAccessToken() != "" }
+func (c *Client) TestAccessToken() bool { return c.GetAccessToken() != "" }
 
 func (c *Client) needDoTraceHandler(interId string) bool {
 	if c.traceHandler == nil {
@@ -189,7 +190,7 @@ func (c *Client) Invoke(ctx context.Context, interId string, req, resp any) erro
 		return err
 	}
 
-	if !c.testAccessToken() {
+	if !c.TestAccessToken() {
 		c.RefreshToken(ctx)
 	}
 	if c.needDoTraceHandler(interId) {
@@ -199,7 +200,7 @@ func (c *Client) Invoke(ctx context.Context, interId string, req, resp any) erro
 	}
 
 	for retry := 0; retry < 2; retry++ {
-		reqBody, err = c.encodeBody(interId, c.getAccessToken(), req)
+		reqBody, err = c.encodeBody(interId, c.GetAccessToken(), req)
 		if err != nil {
 			return err
 		}

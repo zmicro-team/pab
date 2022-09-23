@@ -196,10 +196,10 @@ func (c *Client) RefreshToken(ctx context.Context) (string, error) {
 	return tk.(string), nil
 }
 
-func (c *Client) getAccessToken() string  { return c.accessToken.Load().(string) }
+func (c *Client) GetAccessToken() string  { return c.accessToken.Load().(string) }
 func (c *Client) setAccessToken(s string) { c.accessToken.Store(s) }
 
-func (c *Client) testAccessToken() bool { return c.getAccessToken() != "" }
+func (c *Client) TestAccessToken() bool { return c.GetAccessToken() != "" }
 
 func (c *Client) needDoTraceHandler(interId string) bool {
 	if c.traceHandler == nil {
@@ -246,7 +246,7 @@ func (c *Client) invoke(ctx context.Context, serviceId string, req []byte) ([]by
 	if err != nil {
 		return nil, err
 	}
-	if !c.testAccessToken() {
+	if !c.TestAccessToken() {
 		c.RefreshToken(ctx)
 	}
 
@@ -285,7 +285,7 @@ func (c *Client) encodeHeader(clientHeaders map[string]string, body string, encr
 		"x-pab-signMethod":   "SM2",
 		"x-pab-encrypt":      strconv.FormatBool(encrypt),
 	}
-	if tk := c.getAccessToken(); tk != "" {
+	if tk := c.GetAccessToken(); tk != "" {
 		headers["Authorization"] = tk
 	}
 	if encrypt {

@@ -1,4 +1,4 @@
-package openpaa
+package filecipher
 
 import (
 	"math/rand"

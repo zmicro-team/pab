@@ -197,14 +197,12 @@ func (c *Client) execute(ctx context.Context, method, url string, headers map[st
 	return markResp, nil
 }
 
-func (c *Client) getFile(ctx context.Context, url string, headers map[string]string) (io.ReadCloser, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, nil)
+func (c *Client) SendXmlRequest(ctx context.Context, url string, data []byte) (io.ReadCloser, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(data))
 	if err != nil {
 		return nil, err
 	}
-	for k, v := range headers {
-		req.Header.Add(k, v)
-	}
+	req.Header.Add("Content-Type", "application/xml;charset=UTF-8;")
 
 	rsp, err := c.httpClient.Do(req)
 	if err != nil {

@@ -6,38 +6,18 @@ import (
 	"github.com/things-go/pab/utils"
 )
 
-func getNeedMap(in map[string]any, out map[string]string) {
+func innerNeedMap(parent string, in map[string]any, out map[string]string) {
 	for k, v := range in {
 		switch obj := v.(type) {
 		case map[string]any:
-			getNeedMapInner(k, obj, out)
+			innerNeedMap(k, obj, out)
 		case []any:
-			for _, o := range obj {
-				switch u := o.(type) {
-				case string:
-					out[u] = u
+			for _, vv := range obj {
+				switch u := vv.(type) {
 				case map[string]any:
-					getNeedMapInner(k, u, out)
-				}
-			}
-		case string:
-			out[k] = obj
-		}
-	}
-}
-
-func getNeedMapInner(parent string, in map[string]any, out map[string]string) {
-	for k, v := range in {
-		switch obj := v.(type) {
-		case map[string]any:
-			getNeedMapInner(k, obj, out)
-		case []any:
-			for _, o := range obj {
-				switch u := o.(type) {
+					innerNeedMap(k, u, out)
 				case string:
 					out[parent+u] = u
-				case map[string]any:
-					getNeedMapInner(k, u, out)
 				}
 			}
 		case string:
@@ -46,16 +26,19 @@ func getNeedMapInner(parent string, in map[string]any, out map[string]string) {
 	}
 }
 
-func Sign(privateKey *rsa.PrivateKey, request map[string]any) (string, error) {
-	need := make(map[string]string)
-	getNeedMap(request, need)
+func needSignMap(in map[string]any) map[string]string {
+	out := make(map[string]string)
+	innerNeedMap("", in, out)
+	return out
+}
+func Sign(privateKey *rsa.PrivateKey, mp map[string]any) (string, error) {
+	need := needSignMap(mp)
 	return utils.SignMD5WithRSA(privateKey, concatMap(need))
 }
 
 // 返回数据验签
-func Verify(publicKey *rsa.PublicKey, m map[string]any, sign string) error {
-	need := make(map[string]string)
-	getNeedMap(m, need)
+func Verify(publicKey *rsa.PublicKey, mp map[string]any, sign string) error {
+	need := needSignMap(mp)
 	return utils.VerifyMD5WithRSA(publicKey, concatMap(need), sign)
 }
 
