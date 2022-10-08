@@ -55,6 +55,7 @@ func (c *Client) fileAuth(ctx context.Context, req *FileAuthRequest) (*FileAuthR
 		return nil, errors.New(FileErrCodeText(ErrFileAuthUserFailed))
 	}
 	if !result.AuthTokenFlag {
+		c.RefreshToken(ctx) // TODO: 刷新token的时机?
 		return nil, errors.New(FileErrCodeText(ErrFileAuthTokenFailed))
 	}
 	return result, nil
