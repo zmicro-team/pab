@@ -203,7 +203,7 @@ const (
 	Err291  = "ERR291" // 未配置白名单展示
 	Err317  = "ERR317" // 订单可用余额不足
 
-	E30001 = "E30001" //
+	E30001 = "E30001" // Token有误，验证失败，请做开发者认证
 	E10002 = "E10002" // 无匹配的会员子账户或会员子账户已失效
 
 	E80001 = "E80001" // 会员信息鉴权失败
@@ -213,9 +213,10 @@ const (
 )
 
 const (
-// OPEN-E-100074: 验签失败
-// OPEN-E-100071: Token不存在
-// OPEN-E-100073: Token有误，验证失败，请做开发者认证
+	OPEN_E_000000 = "OPEN-E-000000" // 成功
+	OPEN_E_100071 = "OPEN-E-100071" // Token不存在
+	OPEN_E_100073 = "OPEN-E-100073" // Token有误，验证失败，请做开发者认证
+	OPEN_E_100074 = "OPEN-E-100074" // 验签失败
 )
 
 type Error struct {
@@ -236,7 +237,12 @@ func NewError(code, msg string) *Error {
 
 // IsErrInvalidToken errorCode是否是token无效
 func IsErrInvalidToken(errorCode string) bool {
-	return slices.Contains([]string{"OPEN-E-100071", "OPEN-E-100073", "OPEN-E-100074"}, errorCode)
+	return slices.Contains([]string{
+		OPEN_E_100071,
+		OPEN_E_100073,
+		OPEN_E_100074,
+		E30001,
+	}, errorCode)
 }
 
 // ContainErr 是否包含指定的错误代码

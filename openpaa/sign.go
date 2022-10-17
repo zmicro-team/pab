@@ -81,7 +81,17 @@ func CheckSign(pub *rsa.PublicKey, body []byte) error {
 
 	// errorCode = OPEN-E-000000 验证开发者成功, 其它为 非业务错误
 	// errorCode == "" 业务正确, 业务错误由业务层判断
-	if errorCode == "OPEN-E-000000" || errorCode == "" {
+	if errorCode == OPEN_E_000000 || errorCode == "" {
+		if errorCode != OPEN_E_000000 { // 业务层 判断 Code 和 tokenExpiryFlag
+			code := cast.ToString(mp["Code"])
+			if code == E30001 {
+				return NewError(code, cast.ToString(mp["Message"]))
+			}
+			tokenExpiryFlag := cast.ToString(mp["tokenExpiryFlag"])
+			if tokenExpiryFlag == "true" {
+				return NewError(OPEN_E_100073, "token 已过期")
+			}
+		}
 		err = Verify(pub, mp, sign)
 		if err != nil {
 			return NewError(errorCode, err.Error())

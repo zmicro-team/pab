@@ -209,10 +209,6 @@ func (c *Client) Invoke(ctx context.Context, interId string, req, resp any) erro
 			return err
 		}
 		respBody = result.Body()
-		if gjson.GetBytes(respBody, "Code").String() == E30001 {
-			c.RefreshToken(ctx)
-			continue
-		}
 		err = CheckSign(c.publicKey, respBody)
 		if err != nil {
 			if e, ok := err.(*Error); ok && IsErrInvalidToken(e.ErrorCode) {
@@ -221,16 +217,12 @@ func (c *Client) Invoke(ctx context.Context, interId string, req, resp any) erro
 			}
 			return err
 		}
-		if gjson.GetBytes(respBody, "tokenExpiryFlag").String() == "true" {
-			c.RefreshToken(ctx)
-			continue
-		}
 		err = json.Unmarshal(respBody, resp)
 		if err != nil {
 			return err
 		}
 		txnReturnCode := gjson.GetBytes(respBody, "TxnReturnCode").String()
-		if txnReturnCode == "000000" {
+		if txnReturnCode == Success {
 			return nil
 		}
 		txnReturnMsg := gjson.GetBytes(respBody, "TxnReturnMsg").String()
