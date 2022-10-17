@@ -80,11 +80,11 @@ func CheckSign(pub *rsa.PublicKey, body []byte) error {
 	delete(mp, "errorMsg")
 
 	// errorCode = OPEN-E-000000 验证开发者成功, 其它为 非业务错误
-	// len(errorCode) == 0 业务正确, 业务错误由业务层判断
-	if errorCode == "OPEN-E-000000" || len(errorCode) == 0 {
-		err := Verify(pub, mp, sign)
+	// errorCode == "" 业务正确, 业务错误由业务层判断
+	if errorCode == "OPEN-E-000000" || errorCode == "" {
+		err = Verify(pub, mp, sign)
 		if err != nil {
-			return NewError("", err.Error())
+			return NewError(errorCode, err.Error())
 		}
 		return nil
 	}
