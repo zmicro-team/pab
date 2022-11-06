@@ -36,11 +36,11 @@ type Config struct {
 	// 获取token 的scope, 目前为空
 	Scope string `yaml:"scope" json:"scope"`
 	// 商户私钥, 用于解密接收平台的数据
-	// sm2
 	PrivateKey string `yaml:"privateKey" json:"privateKey"`
 	// 平台公钥, 用于加密发往平台的数据
-	// sm2
 	PublicKey string `yaml:"publicKey" json:"publicKey"`
+	// 商户私钥密码
+	PrivateKeyPasswd string `yaml:"privateKeyPasswd" json:"PrivateKeyPasswd"`
 	// 文件上传url
 	FileUploadUrl string `yaml:"fileUploadUrl" json:"fileUploadUrl"`
 	// 文件下载url
@@ -93,7 +93,7 @@ func New(config Config, opts ...Option) (*Client, error) {
 	if err != nil {
 		return nil, fmt.Errorf("加载公钥(%s)失败, %v", config.PublicKey, err)
 	}
-	priv, certificate, err := cert.LoadPfxFromFile(config.PrivateKey, "1")
+	priv, certificate, err := cert.LoadPfxFromFile(config.PrivateKey, config.PrivateKeyPasswd)
 	if err != nil {
 		return nil, fmt.Errorf("加载私钥(%s)失败, %v", config.PrivateKey, err)
 	}
