@@ -1,21 +1,10 @@
 package cert
 
 import (
-	"crypto/x509"
 	"crypto/x509/pkix"
-	"encoding/pem"
 	"fmt"
-	"io/ioutil"
 	"strings"
 )
-
-type TrustedCert struct {
-	Sdb         *x509.Certificate
-	Oca         *x509.Certificate
-	PaygateSite *x509.Certificate
-	Pca         *x509.Certificate
-	Rca         *x509.Certificate
-}
 
 var oid = map[string]string{
 	"2.5.4.3":                    "CN",
@@ -58,43 +47,4 @@ func getDNFromCert(namespace pkix.Name, sep string) (string, error) {
 		}
 	}
 	return sep + strings.Join(subject, sep), nil
-}
-
-func LoadTrustedCert() (err error, certData *TrustedCert) {
-	certData = &TrustedCert{}
-	certData.Oca, err = ParseCertificateFromFile("conf/oca.cer")
-	certData.PaygateSite, err = ParseCertificateFromFile("conf/paygate_site.cer")
-	certData.Pca, err = ParseCertificateFromFile("conf/pca.cer")
-	certData.Rca, err = ParseCertificateFromFile("conf/rca.cer")
-	certData.Sdb, err = ParseCertificateFromFile("conf/sdb.cer")
-	return
-}
-
-// 根据文件名解析出证书
-// openssl pkcs12 -in xxxx.pfx -clcerts -nokeys -out key.cert
-func ParseCertificateFromFile(path string) (cert *x509.Certificate, err error) {
-	// Read the verify sign certification key
-	pemData, err := ioutil.ReadFile(path)
-	if err != nil {
-		return
-	}
-
-	// Extract the PEM-encoded data block
-	block, _ := pem.Decode(pemData)
-	if block == nil {
-		err = fmt.Errorf("bad key data: %s", "not PEM-encoded")
-		return
-	}
-	if got, want := block.Type, "CERTIFICATE"; got != want {
-		err = fmt.Errorf("unknown key type %q, want %q", got, want)
-		return
-	}
-
-	// Decode the certification
-	cert, err = x509.ParseCertificate(block.Bytes)
-	if err != nil {
-		err = fmt.Errorf("bad private key: %s", err)
-		return
-	}
-	return
 }

@@ -217,6 +217,7 @@ const (
 	OPEN_E_100071 = "OPEN-E-100071" // Token不存在
 	OPEN_E_100073 = "OPEN-E-100073" // Token有误，验证失败，请做开发者认证
 	OPEN_E_100074 = "OPEN-E-100074" // 验签失败
+	OPEN_E_000020 = "OPEN-E-000020" // 证书已经过期，请登录门户及时更新证书
 )
 
 type Error struct {

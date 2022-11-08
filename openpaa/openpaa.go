@@ -40,7 +40,7 @@ type Config struct {
 	// 平台公钥, 用于加密发往平台的数据
 	PublicKey string `yaml:"publicKey" json:"publicKey"`
 	// 商户私钥密码
-	PrivateKeyPasswd string `yaml:"privateKeyPasswd" json:"PrivateKeyPasswd"`
+	PrivateKeyPasswd string `yaml:"privateKeyPasswd" json:"privateKeyPasswd"`
 	// 文件上传url
 	FileUploadUrl string `yaml:"fileUploadUrl" json:"fileUploadUrl"`
 	// 文件下载url
