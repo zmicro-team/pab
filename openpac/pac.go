@@ -14,7 +14,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/things-go/extrand"
+	"github.com/things-go/x/extrand"
 	"golang.org/x/sync/singleflight"
 
 	"github.com/things-go/pab/cert"

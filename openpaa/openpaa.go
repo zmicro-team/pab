@@ -13,7 +13,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/things-go/extrand"
+	"github.com/things-go/x/extrand"
 	"github.com/tidwall/gjson"
 	"golang.org/x/sync/singleflight"
 

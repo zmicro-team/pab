@@ -12,7 +12,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/things-go/extrand"
+	"github.com/things-go/x/extrand"
 	"github.com/tidwall/gjson"
 
 	"github.com/things-go/pab/gm/sm2"
