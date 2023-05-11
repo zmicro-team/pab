@@ -248,6 +248,9 @@ func IsErrInvalidToken(errorCode string) bool {
 
 // ContainErr 是否包含指定的错误代码
 func ContainErr(err error, errCode ...string) bool {
+	if err == nil {
+		return false
+	}
 	e, ok := err.(*Error)
 	if !ok {
 		return false
@@ -256,6 +259,9 @@ func ContainErr(err error, errCode ...string) bool {
 }
 
 func ErrCodeText(err error) string {
+	if err == nil {
+		return ""
+	}
 	e, ok := err.(*Error)
 	if !ok {
 		return err.Error()

@@ -324,8 +324,8 @@ func (c *Client) encodeBody(interId string, req any) ([]byte, error) {
 
 	commonBody := map[string]any{
 		// 公共字段
-		"CnsmrSeqNo": c.generateCnsmrSeqNo(22), // 建议: 用户短号(6位)+日期(6位)+随机编号(10位)
-		"TxnCode":    interId,                  // 交易码/接口id
+		"CnsmrSeqNo": c.GenerateCnsmrSeqNo(), // 建议: 用户短号(6位)+日期(6位)+随机编号(10位)
+		"TxnCode":    interId,                // 交易码/接口id
 		// "TxnClientNo":       "", // 交易客户号, Ecif客户号, not used
 		"TxnTime":  time.Now().Format("20060102150405") + "000", // 发送时间, 格式: YYYYMMDDHHmmSSNNN, 后三位固定0
 		"MrchCode": c.config.MrchCode,                           // 商户号, 平台代码
@@ -363,6 +363,12 @@ func (c *Client) decodeBody(resp *HttpResponse, encrypt bool) (body []byte, err 
 		}
 	}
 	return body, nil
+}
+
+// GenerateCnsmrSeqNo 只要满足22位即可
+// 建议: 用户短号(6位)+日期(6位)+随机编号(10位) 共 22 位
+func (c *Client) GenerateCnsmrSeqNo() string {
+	return c.generateCnsmrSeqNo(22)
 }
 
 // generateCnsmrSeqNo 只要满足22位即可

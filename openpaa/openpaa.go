@@ -242,7 +242,7 @@ func (c *Client) encodeBody(interId, accessToken string, req any) ([]byte, error
 	mp["RequestMode"] = "json"
 	mp["ValidTerm"] = "20170801"
 	mp["TxnTime"] = time.Now().Format("20060102150405") + "000" // 发送时间, 格式: YYYYMMDDHHmmSSNNN, 后三位固定0
-	mp["CnsmrSeqNo"] = c.generateCnsmrSeqNo(22)
+	mp["CnsmrSeqNo"] = c.GenerateCnsmrSeqNo()
 	mp["MrchCode"] = c.config.MrchCode
 	mp["FundSummaryAcctNo"] = c.config.FundSummaryAcctNo
 	mp["TxnCode"] = interId
@@ -253,6 +253,12 @@ func (c *Client) encodeBody(interId, accessToken string, req any) ([]byte, error
 	}
 	mp["RsaSign"] = sign
 	return json.Marshal(mp)
+}
+
+// GenerateCnsmrSeqNo 只要满足22位即可
+// 建议: 用户短号(6位)+日期(6位)+随机编号(10位) 共 22 位
+func (c *Client) GenerateCnsmrSeqNo() string {
+	return c.generateCnsmrSeqNo(22)
 }
 
 // generateCnsmrSeqNo 只要满足22位即可

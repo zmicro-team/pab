@@ -240,6 +240,9 @@ func (e Errors) Error() string {
 
 // ContainErr 是否包含指定的错误代码
 func ContainErr(err error, errCode string) bool {
+	if err == nil {
+		return false
+	}
 	es, ok := err.(Errors)
 	if !ok {
 		return false
@@ -258,6 +261,9 @@ func CodeText(errCode string) string {
 }
 
 func ErrCodeText(err error) string {
+	if err == nil {
+		return ""
+	}
 	es, ok := err.(Errors)
 	if !ok {
 		return err.Error()
