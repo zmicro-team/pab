@@ -25,6 +25,7 @@ type ResponseData struct {
 
 // R: request type
 // T: response type
+// NOTE: req 的 CnsmrSeqNo 交易网业务流水号必须存在
 // InvokeAny 处理请求, req 只需要非公共字段, 底层已加入公共字段
 func Invoke[R any, T any](c *Client, ctx context.Context, interId string, req *R) (*T, error) {
 	var result T

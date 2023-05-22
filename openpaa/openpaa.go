@@ -242,10 +242,13 @@ func (c *Client) encodeBody(interId, accessToken string, req any) ([]byte, error
 	mp["RequestMode"] = "json"
 	mp["ValidTerm"] = "20170801"
 	mp["TxnTime"] = time.Now().Format("20060102150405") + "000" // 发送时间, 格式: YYYYMMDDHHmmSSNNN, 后三位固定0
-	mp["CnsmrSeqNo"] = c.GenerateCnsmrSeqNo()
 	mp["MrchCode"] = c.config.MrchCode
 	mp["FundSummaryAcctNo"] = c.config.FundSummaryAcctNo
 	mp["TxnCode"] = interId
+
+	if mp["CnsmrSeqNo"] == "" {
+		mp["CnsmrSeqNo"] = c.GenerateCnsmrSeqNo()
+	}
 
 	sign, err := Sign(c.privateKey, mp)
 	if err != nil {

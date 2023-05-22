@@ -7,6 +7,7 @@ import (
 type ApntTransferReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
 	RecvAcctNo                    string // required(32), 收款账户的账号(见证子账户绑定的银行卡账户)
+	CnsmrSeqNo                    string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	RecvAcctName                  string `json:",omitempty"` // optional(120), 收款账户的户名
 	RecvAcctOpenBranchName        string `json:",omitempty"` // optional(100), 收款账户的开户行的行名
 	RecvAcctOpenBranchInterbankId string `json:",omitempty"` // optional(20), 收款账户的联行号
@@ -16,10 +17,6 @@ type ApntTransferReq struct {
 	HoldOne                       string `json:",omitempty"` // optional(120), 预留字段1
 	HoldTwo                       string `json:",omitempty"` // optional(120), 预留字段2
 	HoldThree                     string `json:",omitempty"` // optional(120), 预留字段3
-}
-
-func (ApntTransferReq) Validate() error {
-	return nil
 }
 
 type ApntTransferRsp struct {

@@ -17,6 +17,7 @@ type ResponseFrontSeqNo struct {
 // NOTE: 销户时仍有卡在绑, 不能解绑
 type AutonymOpenCustAcctIdReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	FunctionFlag      string // required(1), 功能标志, 1: 开户, 2: 销户, 3: 存量实名
 	TranNetMemberCode string // required(32), 交易网会员代码(即在平台端系统的会员编号)
 	MemberName        string // required(120), 客户真实姓名(销户时可选)
@@ -28,10 +29,6 @@ type AutonymOpenCustAcctIdReq struct {
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
 }
 
-func (AutonymOpenCustAcctIdReq) Validate() error {
-	return nil
-}
-
 // AutonymOpenCustAcctIdRsp 开户回复
 type AutonymOpenCustAcctIdRsp struct {
 	ResponseData
@@ -41,6 +38,7 @@ type AutonymOpenCustAcctIdRsp struct {
 
 type MntMbrBindSameRealCustNameAcctReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	// 1. 申请开立商户子账户和普通会员子账户
 	// 2. 申请为已有的商户子账户开立关联的同名的普通会员子账户
 	// 3. 申请为已有的普通会员子账户开立关联的同名的商户子账户
@@ -68,10 +66,6 @@ type MntMbrBindSameRealCustNameAcctReq struct {
 	ReservedMsgFour  string `json:",omitempty"` // optional(120), 保留域3
 }
 
-func (MntMbrBindSameRealCustNameAcctReq) Validate() error {
-	return nil
-}
-
 type MntMbrBindSameRealCustNameAcctRsp struct {
 	ResponseData
 	SameNameAcctRelRelation string // required(1), 1: 是
@@ -87,12 +81,9 @@ type MntMbrBindSameRealCustNameAcctRsp struct {
 // QueryCustAcctIdByThirdCustIdReq 根据会员代码查询会员子账号请求
 type QueryCustAcctIdByThirdCustIdReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	TranNetMemberCode string // required(32), 交易网会员代码(即在平台端系统的会员编号)
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (QueryCustAcctIdByThirdCustIdReq) Validate() error {
-	return nil
 }
 
 // QueryCustAcctIdByThirdCustIdRsp 根据会员代码查询会员子账号回复
@@ -104,14 +95,11 @@ type QueryCustAcctIdByThirdCustIdRsp struct {
 
 type MemberBindQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo  string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	QueryFlag   string // required(1), 查询标志, 1: 全部会员, 2: 单个会员
 	SubAcctNo   string `json:",omitempty"` // optional(32), 见证子账号, QueryFlag = 2 必填
 	PageNum     string // required(6), 页码,每次返回20条
 	ReservedMsg string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (MemberBindQueryReq) Validate() error {
-	return nil
 }
 
 type TranItem struct {
@@ -141,6 +129,7 @@ type MemberBindQueryRsp struct {
 
 type BindUnionPayWithCheckCorpReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个会员子账号, 并且 '|::|' 分隔, 注意顺序
 	TranNetMemberCode string // required(32), 交易网会员代码, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个交易网会员代码, 并且 '|::|' 分隔, 注意顺序
 	// 个人工商户此信息默认为法人信息, 当 RepFlag = 2 时,该信息是代办人信息
@@ -172,12 +161,9 @@ type BindUnionPayWithCheckCorpReq struct {
 	Flag        string `json:",omitempty"` // optional(120), 标志(未启用)
 }
 
-func (BindUnionPayWithCheckCorpReq) Validate() error {
-	return nil
-}
-
 type CheckMsgCodeWithCorpReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个会员子账号, 并且 '|::|' 分隔, 注意顺序
 	TranNetMemberCode string // required(32), 交易网会员代码, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个会员子账号, 并且 '|::|' 分隔, 注意顺序
 	MemberAcctNo      string // required(32), 提现的银行卡
@@ -186,12 +172,9 @@ type CheckMsgCodeWithCorpReq struct {
 	ReservedMsg string `json:",omitempty"` // optional(120), 保留域
 }
 
-func (CheckMsgCodeWithCorpReq) Validate() error {
-	return nil
-}
-
 type BindSmallAmountWithCheckCorpReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个会员子账号, 并且 '|::|' 分隔, 注意顺序
 	TranNetMemberCode string // required(32), 交易网会员代码, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个会员的交易网代码, 并且 '|::|' 分隔, 注意顺序
 	// 个人工商户此信息默认为法人信息, RepFlag = 2 时,该信息是代办人信息
@@ -231,12 +214,9 @@ type BindSmallAmountWithCheckCorpReq struct {
 	Flag        string `json:",omitempty"` // optional(120), 标志(未启用)
 }
 
-func (BindSmallAmountWithCheckCorpReq) Validate() error {
-	return nil
-}
-
 type CheckAmountWithCorpReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个会员子账号, 并且 '|::|' 分隔, 注意顺序
 	TranNetMemberCode string // required(32), 交易网会员代码 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个交易网会员代码, 并且 '|::|' 分隔, 注意顺序
 	TakeCashAcctNo    string // required(32), 提现的银行卡
@@ -246,13 +226,11 @@ type CheckAmountWithCorpReq struct {
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
 }
 
-func (CheckAmountWithCorpReq) Validate() error {
-	return nil
-}
-
 type UnbindRelateAcctReq struct {
 	// required(32), 资金监管账号(底层已实现)
 	// FundSummaryAcctNo string
+	// optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
+	CnsmrSeqNo string
 	// required(1), 功能标志, 1: 解绑
 	FunctionFlag string
 	// required(32), 子账户账号, 若需要把待绑定账户关联到两个会员名下, 此字段可上送两个会员子账号, 并且 '|::|' 分隔, 注意顺序
@@ -265,22 +243,15 @@ type UnbindRelateAcctReq struct {
 	ReservedMsg string `json:",omitempty"`
 }
 
-func (UnbindRelateAcctReq) Validate() error {
-	return nil
-}
-
 type ApplyForChangeOfCellPhoneNumReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号
 	TranNetMemberCode string // required(32), 交易网会员代码
 	ModifyType        string // required(2), 修改方法, 1: 短信验证码, 2: 银联鉴权
 	NewMobile         string // required(12) 新手机号, ModifyType=2 应为银行卡预留手机号
 	BankCardNo        string `json:",omitempty"` // optional(32), 银行卡号 ModifyType=2 必填
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (ApplyForChangeOfCellPhoneNumReq) Validate() error {
-	return nil
 }
 
 type ApplyForChangeOfCellPhoneNumRsp struct {
@@ -292,6 +263,7 @@ type ApplyForChangeOfCellPhoneNumRsp struct {
 
 type BackfillDynamicPasswordReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号
 	TranNetMemberCode string // required(32), 交易网会员代码
 	ModifyType        string // required(2), 修改方法, 1: 短信验证码, 2: 银联鉴权
@@ -300,13 +272,11 @@ type BackfillDynamicPasswordReq struct {
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
 }
 
-func (BackfillDynamicPasswordReq) Validate() error {
-	return nil
-}
-
 type MntMbrBindRelateAcctBankCodeReq struct {
 	// required(32), 资金监管账号(底层已实现)
 	// FundSummaryAcctNo string
+	// optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
+	CnsmrSeqNo string
 	// required(32), 子账户账号
 	SubAcctNo string
 	// required(32), 会员绑定账号
@@ -324,12 +294,9 @@ type MntMbrBindRelateAcctBankCodeReq struct {
 	ReservedMsg string `json:",omitempty"`
 }
 
-func (MntMbrBindRelateAcctBankCodeReq) Validate() error {
-	return nil
-}
-
 type RegisterBehaviorRecordInfoReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号
 	TranNetMemberCode string // required(32), 交易网会员代码
 	FunctionFlag      string // required(2), 功能标志,1: 登记行为记录信息, 2: 查询补录信息
@@ -339,10 +306,6 @@ type RegisterBehaviorRecordInfoReq struct {
 	SignChannel       int    `json:",omitempty"` // optional(2), 签约渠道, 1-app 2-平台H5网页 3-公众号 4-小程序, FunctionFlag = 1 必填
 	ReservedMsgOne    string `json:",omitempty"` // optional(120), 保留域
 	ReservedMsgTwo    string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (RegisterBehaviorRecordInfoReq) Validate() error {
-	return nil
 }
 
 type RegisterBehaviorRecordInfoRsp struct {
@@ -358,6 +321,7 @@ type RegisterBehaviorRecordInfoRsp struct {
 
 type RegisterBillSupportWithdrawReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号
 	TranNetMemberCode string // required(32), 交易网会员代码
 	OrderNo           string // required(32), 订单号, 全局唯一
@@ -369,12 +333,9 @@ type RegisterBillSupportWithdrawReq struct {
 	ReservedMsgThree  string `json:",omitempty"` // optional(120), 保留域3
 }
 
-func (RegisterBillSupportWithdrawReq) Validate() error {
-	return nil
-}
-
 type RevRegisterBillSupportWithdrawReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号
 	TranNetMemberCode string // required(32), 交易网会员代码
 	OldOrderNo        string // required(32), 原订单号, 原 6139 登记挂账的订单号
@@ -386,12 +347,9 @@ type RevRegisterBillSupportWithdrawReq struct {
 	ReservedMsgThree  string `json:",omitempty"` // optional(120), 保留域3
 }
 
-func (RevRegisterBillSupportWithdrawReq) Validate() error {
-	return nil
-}
-
 type AccountRegulationReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo           string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo            string // required(32), 子账户账号
 	TranNetMemberCode    string // required(32), 交易网会员代码
 	SubAcctName          string // required(120), 见证子账户名称
@@ -403,20 +361,13 @@ type AccountRegulationReq struct {
 	ReservedMsg          string `json:",omitempty"` // optional(120), 保留域
 }
 
-func (AccountRegulationReq) Validate() error {
-	return nil
-}
-
 type PlatformAccountSupplyReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo           string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	AcquiringChannelType string // required(2), 收单渠道类型, 01-橙E收款, YST1-云收款
 	OrderNo              string // required(30), 订单号, 根据所填渠道所返回的订单号，这里是总订单号
 	Amt                  string // required(15), 金额
 	ReservedMsg          string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (PlatformAccountSupplyReq) Validate() error {
-	return nil
 }
 
 type PlatformAccountSupplyRsp struct {
@@ -429,6 +380,7 @@ type PlatformAccountSupplyRsp struct {
 }
 
 type RcvMntMbrInfoApplyReq struct {
+	CnsmrSeqNo               string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	FunctionFlag             string // M-修改 Q-查询
 	WitnessSubAcctNo         string // 见证子账户的账号
 	TranNetMemberCode        string // 交易网会员代码
@@ -443,14 +395,11 @@ type RcvMntMbrInfoApplyReq struct {
 	HoldFive                 string // 预留字段5
 }
 
-func (RcvMntMbrInfoApplyReq) Validate() error {
-	return nil
-}
-
 /************************************* 交易 ************************************/
 
 type MemberTransactionReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo     string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	FunctionFlag   string // required(1), 功能标志, 1: 下单预支付, 2: 确认并支付, 3: 退款(仅退预支付) 4: 同名子账户支付, 6: 直接支付T+1, 7: 支付到平台, 9: 直接支付T+0
 	OutSubAcctNo   string // required(32), 转出方的见证子账户账号
 	OutMemberCode  string // required(32), 转出方的交易网会员代码
@@ -469,13 +418,10 @@ type MemberTransactionReq struct {
 	WebSign        string `json:",omitempty"` // optional(256), 网银签名, 若需短信验证码则此项必输
 }
 
-func (MemberTransactionReq) Validate() error {
-	return nil
-}
-
 type MembershipWithdrawCashReq struct {
 	// required(32), 资金监管账号(底层已实现)
 	// FundSummaryAcctNo string
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	// required(32), 子账户账号
 	SubAcctNo string
 	// required(32), 交易网会员代码
@@ -505,10 +451,6 @@ type MembershipWithdrawCashReq struct {
 	WebSign string `json:",omitempty"`
 }
 
-func (MembershipWithdrawCashReq) Validate() error {
-	return nil
-}
-
 type MembershipWithdrawCashRsp struct {
 	ResponseData
 	// required(16), 见证系统流水号
@@ -521,6 +463,7 @@ type MembershipWithdrawCashRsp struct {
 
 type MembershipTrancheFreezeReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	// 1: 冻结 (会员→担保)
 	// 2: 解冻 (担保→会员)
 	// 4: 见证+收单的冻结资金解冻
@@ -540,12 +483,9 @@ type MembershipTrancheFreezeReq struct {
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
 }
 
-func (MembershipTrancheFreezeReq) Validate() error {
-	return nil
-}
-
 type OnWayTopThirdPaySplitReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo            string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	PayChannelType        string // required(4), 支付渠道类型
 	PayChannelAssignMerNo string // required(64), 支付渠道所分配的商户号, 即市场在第三方支付渠道的商户号
 	TotalOrderNo          string // required(64) 总订单号
@@ -554,10 +494,6 @@ type OnWayTopThirdPaySplitReq struct {
 	TranItemArray         []OnWayTopThirdPaySplitTranItem
 	ReservedMsgOne        string `json:",omitempty"` // optional(120),保贸域1
 	ReservedMsgTwo        string `json:",omitempty"` // optional(120),保留域2
-}
-
-func (OnWayTopThirdPaySplitReq) Validate() error {
-	return nil
 }
 
 type OnWayTopThirdPaySplitTranItem struct {
@@ -586,6 +522,7 @@ type OnWayTopThirdPaySplitItem struct {
 
 type RevokeOnWayTopThirdPaySplitReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	OldPayChannelType string // required(4), 原支[6216]付渠道类型
 	OldTotalOrderNo   string // required(64) 原总订单号
 	TotalRefundAmt    string // required(32) 退款总金额, 支付总金额（子订单会员退款金额和子订单手续费退款金额的总和）
@@ -593,10 +530,6 @@ type RevokeOnWayTopThirdPaySplitReq struct {
 	TranItemArray     []RevokeOnWayTopThirdPaySplitTranItem
 	ReservedMsgOne    string `json:",omitempty"` // optional(120),保贸域1
 	ReservedMsgTwo    string `json:",omitempty"` // optional(120),保留域2
-}
-
-func (RevokeOnWayTopThirdPaySplitReq) Validate() error {
-	return nil
 }
 
 type RevokeOnWayTopThirdPaySplitTranItem struct {
@@ -619,6 +552,7 @@ type RevokeOnWayTopThirdPaySplitRsp struct {
 
 type ApplicationTextMsgDynamicCodeReq struct {
 	// FundSummaryAcctNo string// required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo         string // required(32), 子账户账号
 	TranNetMemberCode string // required(32), 交易网会员代码, 按批次号提现时非必输
 	// 1：提现
@@ -633,10 +567,6 @@ type ApplicationTextMsgDynamicCodeReq struct {
 	ReservedMsg string `json:",omitempty"` // optional(120), 当所申请的短信验证码是用于进行6101接口的功能分支2或4或6或9的场景，须上送转入方的见证子账户的账号
 }
 
-func (ApplicationTextMsgDynamicCodeReq) Validate() error {
-	return nil
-}
-
 type ApplicationTextMsgDynamicCodeRsp struct {
 	ResponseData
 	ReceiveMobile  string // 接收手机号码, 只有后4位
@@ -646,6 +576,7 @@ type ApplicationTextMsgDynamicCodeRsp struct {
 
 type MemberTranVerifyTextMsgsReq struct {
 	// FundSummaryAcctNo string// required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	// 6: 直接支付T+1
 	// 9: 直接支付T+0
 	FunctionFlag     string // required(1), 功能标志
@@ -667,12 +598,9 @@ type MemberTranVerifyTextMsgsReq struct {
 	ReservedMsg      string `json:",omitempty"` // optional(120), 当所申请的短信验证码是用于进行6101接口的功能分支2或4或6或9的场景，须上送转入方的见证子账户的账号
 }
 
-func (MemberTranVerifyTextMsgsReq) Validate() error {
-	return nil
-}
-
 type MemberTransactionRefundReq struct {
 	// FundSummaryAcctNo string// required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	// 1：会员交易接口 [确认付款] 退款, 针对 [6006/6034/6101] funcflag=2-确认并付款的退款
 	// 2：会员交易接口 [直接支付] 退款, 针对 [6006/6034/6101] funcflag=6、9-直接支付的退款
 	// 3：平台订单管理接口 [平台代理确认收货] 退款, 针对 [6031] 2-平台代理确认收货的退款
@@ -695,21 +623,14 @@ type MemberTransactionRefundReq struct {
 	ReservedMsg      string `json:",omitempty"` // optional(120),
 }
 
-func (MemberTransactionRefundReq) Validate() error {
-	return nil
-}
-
 /************************************* 查询 ************************************/
 
 type SmallAmountTransferQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	OldTranSeqNo string // required(32), 原交易流水号, 小额鉴权交易请求时的CnsmrSeqNo值（第一次申请成功时的流水号）
 	TranDate     string // required(32), 格式：20060102
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (SmallAmountTransferQueryReq) Validate() error {
-	return nil
 }
 
 type SmallAmountTransferQueryRsp struct {
@@ -721,12 +642,9 @@ type SmallAmountTransferQueryRsp struct {
 
 type QueryCustAcctIdReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	TranNetMemberCode string // required(32), 交易网会员代码
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (QueryCustAcctIdReq) Validate() error {
-	return nil
 }
 
 type QueryCustAcctIdRsp struct {
@@ -740,16 +658,13 @@ type QueryCustAcctIdRsp struct {
 
 type QueryCustAcctIdBalanceReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
-	SubAcctNo string // required(32), 子账户账号
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
+	SubAcctNo  string // required(32), 子账户账号
 	// 可送三类值
 	// 1， 送空值
 	// 2， 送对手方子账户（已废除）
 	// 3， 送值“SameAccount”
 	ReservedMsg string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (QueryCustAcctIdBalanceReq) Validate() error {
-	return nil
 }
 
 type QueryCustAcctIdBalanceRsp struct {
@@ -762,14 +677,11 @@ type QueryCustAcctIdBalanceRsp struct {
 
 type CustAcctIdBalanceQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo  string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	QueryFlag   string // required(1), 查询标志, 2：普通会员子账号, 3：功能子账号
 	SubAcctNo   string `json:",omitempty"` // optional(32), 子账户账号, QueryFlag = 2 必填
 	PageNum     string // required(6), 页码, 起始值为1, 每页最多20条
 	ReservedMsg string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (CustAcctIdBalanceQueryReq) Validate() error {
-	return nil
 }
 
 type CustAcctIdBalanceItem struct {
@@ -804,6 +716,7 @@ type CustAcctIdBalanceQueryRsp struct {
 
 type SingleTransactionStatusQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	// 2: 会员间交易
 	// 3: 提现
 	// 4: 充值
@@ -812,10 +725,6 @@ type SingleTransactionStatusQueryReq struct {
 	SubAcctNo    string `json:",omitempty"` // optional(32), 子账户 (暂时未启用)
 	TranDate     string `json:",omitempty"` // optional(8), 交易日期,(格式: 20060102) 当功能标志为2时，查询三天前的记录需上送交易日期
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (SingleTransactionStatusQueryReq) Validate() error {
-	return nil
 }
 
 type SingleTransactionStatusQueryRsp struct {
@@ -848,15 +757,12 @@ type SingleTransactionStatusQueryRsp struct {
 
 type BankClearQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	FunctionFlag string // required(1), 功能标志, 1: 全部, 2: 指定时间段
 	PageNum      string // required(6), 页码, 起始值为1, 最多返回20条
 	StartDate    string `json:",omitempty"` // optional(8), 开始日期, 格式: 20181201
 	EndDate      string `json:",omitempty"` // optional(8), 终止日期, 格式: 20181201
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (BankClearQueryReq) Validate() error {
-	return nil
 }
 
 type BankClearQueryItem struct {
@@ -885,15 +791,12 @@ type BankClearQueryRsp struct {
 
 type BankCostDsDealResultQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	FunctionFlag string // required(1), 1: 全部, 2: 指定时间段
 	PageNum      string // required(6), 页码
 	StartDate    string `json:",omitempty"` // optional(8), 开始日期, 格式: 20060102, FunctionFlag = 2 必填
 	EndDate      string `json:",omitempty"` // optional(8), 终止日期, 格式: 20060102, FunctionFlag = 2 必填
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (BankCostDsDealResultQueryReq) Validate() error {
-	return nil
 }
 
 type BankCostDsDealResultQueryItem struct {
@@ -917,16 +820,13 @@ type BankCostDsDealResultQueryRsp struct {
 
 type CustAcctIdHistoryBalanceQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo    string // required(32), 子账户账号
 	FunctionFlag string // required(1), 1: 全部, 2: 指定时间段
 	PageNum      string // required(6), 页码, 每次最多返回20条
 	StartDate    string `json:",omitempty"` // optional(8), 开始日期, 格式: 20060102
 	EndDate      string `json:",omitempty"` // optional(8), 终止日期, 格式: 20060102
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (CustAcctIdHistoryBalanceQueryReq) Validate() error {
-	return nil
 }
 
 type CustAcctIdHistoryBalanceQueryItem struct {
@@ -951,11 +851,8 @@ type CustAcctIdHistoryBalanceQueryRsp struct {
 
 type SupAcctIdBalanceQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo  string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	ReservedMsg string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (SupAcctIdBalanceQueryReq) Validate() error {
-	return nil
 }
 
 type SupAcctIdBalanceQueryRsp struct {
@@ -969,14 +866,11 @@ type SupAcctIdBalanceQueryRsp struct {
 
 type BankWithdrawCashBackQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	FunctionFlag string // required(1), 1: 提现退票, 2: 小额鉴权退票
 	StartDate    string // required(8), 开始日期
 	EndDate      string // required(8), 终止日期
 	ReservedMsg  string // optional(120), 保留域
-}
-
-func (BankWithdrawCashBackQueryReq) Validate() error {
-	return nil
 }
 
 type BankWithdrawCashBackQueryItem struct {
@@ -1008,15 +902,12 @@ type BankWithdrawCashBackQueryRsp struct {
 
 type CommonTransferRechargeQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	FunctionFlag string // required(1), 0: 查询历史数据 1: 为查询当日数据
 	StartDate    string // required(8), 开始日期, 格式: 20060102
 	PageNum      string // required(6), 页码
 	EndDate      string // required(8), 终止日期, 格式: 20060102
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (CommonTransferRechargeQueryReq) Validate() error {
-	return nil
 }
 
 type CommonTransferRechargeQueryItem struct {
@@ -1045,6 +936,7 @@ type CommonTransferRechargeQueryRsp struct {
 
 type BankTransactionDetailsQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo    string // required(32), 子账户账号
 	FunctionFlag string // required(1), 1: 当日 2: 历史
 	QueryFlag    string // required(1), 1: 全部 2: 转出 3: 转入
@@ -1052,10 +944,6 @@ type BankTransactionDetailsQueryReq struct {
 	StartDate    string `json:",omitempty"` // optional(8), 开始日期, 格式: 20060102, FunctionFlag = 2 必填
 	EndDate      string `json:",omitempty"` // optional(8), 终止日期, 格式: 20060102,  FunctionFlag = 2 必填
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (BankTransactionDetailsQueryReq) Validate() error {
-	return nil
 }
 
 type BankTransactionDetailsQueryItem struct {
@@ -1095,6 +983,7 @@ type BankTransactionDetailsQueryRsp struct {
 
 type BankWithdrawCashDetailsQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo   string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	SubAcctNo    string // required(32), 子账户账号
 	FunctionFlag string // required(1), 1: 当日 2: 历史
 	QueryFlag    string // required(1), 2: 提现 3: 清分
@@ -1102,10 +991,6 @@ type BankWithdrawCashDetailsQueryReq struct {
 	EndDate      string `json:",omitempty"` // optional(8), 终止日期, 格式: 20060102, FunctionFlag=2 必填
 	PageNum      string // required(6), 页码
 	ReservedMsg  string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (BankWithdrawCashDetailsQueryReq) Validate() error {
-	return nil
 }
 
 type BankWithdrawCashDetailsQueryItem struct {
@@ -1137,13 +1022,10 @@ type BankWithdrawCashDetailsQueryRsp struct {
 
 type DetailVerifiedCodeQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo    string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	OldFrontSeqNo string // required(32), 原前置流水号
 	OldTranType   string // required(2), 原交易类型, 默认上送1: 担保交易
 	ReservedMsg   string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (DetailVerifiedCodeQueryReq) Validate() error {
-	return nil
 }
 
 type DetailVerifiedCodeQueryRsp struct {
@@ -1155,6 +1037,7 @@ type DetailVerifiedCodeQueryRsp struct {
 
 type ReconciliationDocumentQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	// 充值文件-CZ
 	// 提现文件-TX
 	// 交易文件-JY
@@ -1166,10 +1049,6 @@ type ReconciliationDocumentQueryReq struct {
 	FileType    string // required(2), 文件类型
 	FileDate    string // required(10), 文件日期, 格式: 20060102
 	ReservedMsg string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (ReconciliationDocumentQueryReq) Validate() error {
-	return nil
 }
 
 type ReconciliationDocumentQueryItem struct {
@@ -1187,13 +1066,10 @@ type ReconciliationDocumentQueryRsp struct {
 
 type ChargeDetailQueryReq struct {
 	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo           string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	AcquiringChannelType string // required(2), 收单渠道类型, 01-橙E收款, YST1-云收款
 	OrderNo              string // required(30), 订单号(下单时的子订单号, 不是总订单号)
 	ReservedMsg          string `json:",omitempty"` // optional(120), 保留域
-}
-
-func (ChargeDetailQueryReq) Validate() error {
-	return nil
 }
 
 type ChargeDetailQueryRsp struct {

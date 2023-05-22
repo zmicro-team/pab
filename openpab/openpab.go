@@ -322,18 +322,15 @@ func (c *Client) encodeBody(interId string, req any) ([]byte, error) {
 		return nil, err
 	}
 
-	commonBody := map[string]any{
-		// 公共字段
-		"CnsmrSeqNo": c.GenerateCnsmrSeqNo(), // 建议: 用户短号(6位)+日期(6位)+随机编号(10位)
-		"TxnCode":    interId,                // 交易码/接口id
-		// "TxnClientNo":       "", // 交易客户号, Ecif客户号, not used
-		"TxnTime":  time.Now().Format("20060102150405") + "000", // 发送时间, 格式: YYYYMMDDHHmmSSNNN, 后三位固定0
-		"MrchCode": c.config.MrchCode,                           // 商户号, 平台代码
-		// 主体
-		"FundSummaryAcctNo": c.config.FundSummaryAcctNo, // 资金汇总账号
-	}
-	for k, v := range commonBody {
-		reqBody[k] = v
+	// 公共字段
+	reqBody["TxnCode"] = interId // 交易码/接口id
+	// reqBody["TxnClientNo"] =       "" // 交易客户号, Ecif客户号, not used
+	reqBody["TxnTime"] = time.Now().Format("20060102150405") + "000" // 发送时间, 格式: YYYYMMDDHHmmSSNNN, 后三位固定0
+	reqBody["MrchCode"] = c.config.MrchCode                          // 商户号, 平台代码
+	// 主体
+	reqBody["FundSummaryAcctNo"] = c.config.FundSummaryAcctNo // 资金汇总账号
+	if reqBody["CnsmrSeqNo"] == "" {
+		reqBody["CnsmrSeqNo"] = c.GenerateCnsmrSeqNo()
 	}
 	return json.Marshal(reqBody)
 }

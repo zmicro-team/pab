@@ -29,39 +29,10 @@ type ResponseData struct {
 	CnsmrSeqNo    string // 交易流水号, 同输入
 }
 
-type Validator interface {
-	Validate() error
-}
-
 // R: request type
 // T: response type
-// InvokeAny 处理请求, req 只需要非公共字段, 底层已加入公共字段
-func Invoke[R Validator, T any](c *Client, ctx context.Context, interId string, req *R) (*Response[T], error) {
-	err := (*req).Validate()
-	if err != nil {
-		return nil, err
-	}
-	return InvokeAny[R, T](c, ctx, interId, req)
-}
-
-// R: request type
-// T: response type
-// InvokeAny 处理请求, req 只需要非公共字段, 底层已加入公共字段
-func Invoke2[R Validator, T any](c *Client, ctx context.Context, interId string, req *R) (*T, error) {
-	result, err := Invoke[R, T](c, ctx, interId, req)
-	if err != nil {
-		return nil, err
-	}
-	if result.Code == "" {
-		return result.Data, nil
-	}
-	return result.ExtendData, result.Errors
-}
-
-// R: request type
-// T: response type
-// InvokeAny 处理请求, req 只需要非公共字段, 底层已加入公共字段
-func InvokeAny[R any, T any](c *Client, ctx context.Context, interId string, req *R) (*Response[T], error) {
+// Invoke 处理请求, req 只需要非公共字段, 底层已加入公共字段
+func Invoke[R any, T any](c *Client, ctx context.Context, interId string, req *R) (*Response[T], error) {
 	var result Response[T]
 
 	err := c.Invoke(ctx, interId, req, &result)
@@ -76,9 +47,9 @@ func InvokeAny[R any, T any](c *Client, ctx context.Context, interId string, req
 
 // R: request type
 // T: response type
-// InvokeAny 处理请求, req 只需要非公共字段, 底层已加入公共字段
-func InvokeAny2[R any, T any](c *Client, ctx context.Context, interId string, req *R) (*T, error) {
-	result, err := InvokeAny[R, T](c, ctx, interId, req)
+// Invoke2 处理请求, req 只需要非公共字段, 底层已加入公共字段
+func Invoke2[R any, T any](c *Client, ctx context.Context, interId string, req *R) (*T, error) {
+	result, err := Invoke[R, T](c, ctx, interId, req)
 	if err != nil {
 		return nil, err
 	}
