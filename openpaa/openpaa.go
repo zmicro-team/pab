@@ -246,6 +246,7 @@ func (c *Client) encodeBody(interId, accessToken string, req any) ([]byte, error
 	mp["FundSummaryAcctNo"] = c.config.FundSummaryAcctNo
 	mp["TxnCode"] = interId
 
+	// 如果未传, 则自动生成一个
 	if mp["CnsmrSeqNo"] == "" {
 		mp["CnsmrSeqNo"] = c.GenerateCnsmrSeqNo()
 	}

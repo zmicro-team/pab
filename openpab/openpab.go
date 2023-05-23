@@ -329,6 +329,7 @@ func (c *Client) encodeBody(interId string, req any) ([]byte, error) {
 	reqBody["MrchCode"] = c.config.MrchCode                          // 商户号, 平台代码
 	// 主体
 	reqBody["FundSummaryAcctNo"] = c.config.FundSummaryAcctNo // 资金汇总账号
+	// 如果未传, 则自动生成一个
 	if reqBody["CnsmrSeqNo"] == "" {
 		reqBody["CnsmrSeqNo"] = c.GenerateCnsmrSeqNo()
 	}
