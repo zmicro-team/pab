@@ -46,7 +46,8 @@ const (
 	CcyRMB = "RMB"
 
 	// 交易类型
-	TranTypeNormal = "01" // 普通交易
+	TranTypeNormal      = "01"           // 普通交易t+1
+	TranTypeSafeTradeT0 = "SafeTrade_T0" // 安全交易T+0, 仅分支1(预支付)可用
 
 	// 第三方 支付渠道类型
 	PayChannelTypeWechat              = "0001" // 微信
