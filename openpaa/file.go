@@ -3,7 +3,6 @@ package openpaa
 import (
 	"context"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -63,11 +62,8 @@ func (c *Client) FileDownload(ctx context.Context, pm FilePieceMerge, rd Reconci
 	md5 := ""
 	for index := 1; ; index++ {
 		filePieceResp, err := c.filePiece(ctx, &FilePieceRequest{
-			AppID:       config.AppId,
-			Token:       c.GetAccessToken(),
 			PrivateAuth: rd.DrawCode,
 			Uid:         config.CnsmrSeqNoPrefix,
-			Passwd:      config.CnsmrSeqNoPrefix,
 			FileMsgFlag: FileMsgFlagGet,
 			ServerName:  result.ServerName,
 			SessionID:   result.SessionID,
@@ -78,9 +74,6 @@ func (c *Client) FileDownload(ctx context.Context, pm FilePieceMerge, rd Reconci
 		})
 		if err != nil {
 			return err
-		}
-		if filePieceResp.FileMsgFlag != FileMsgFlagSuccess {
-			return fmt.Errorf("下载文件[%s], 第 %d 分片失败, 错误: %s", filePieceResp.FileName, filePieceResp.FileIndex, FileErrCodeText(filePieceResp.FileMsgFlag))
 		}
 		_, err = pm.Write(filePieceResp.Content)
 		if err != nil {

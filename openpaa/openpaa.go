@@ -77,7 +77,7 @@ func New(config Config, opts ...Option) (*Client, error) {
 		config:               config,
 		privateKey:           nil,
 		publicKey:            nil,
-		httpClient:           &http.Client{Timeout: time.Second * 10},
+		httpClient:           &http.Client{Timeout: time.Second * 30},
 		accessToken:          atomic.Value{},
 		group:                singleflight.Group{},
 		log:                  plog.NewStdLogger(os.Stdout),
