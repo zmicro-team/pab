@@ -395,6 +395,18 @@ type RcvMntMbrInfoApplyReq struct {
 	HoldFive                 string // 预留字段5
 }
 
+type MemberInformationChangeReq struct {
+	CnsmrSeqNo        string // optional(22), 交易网业务流水号(如果未设置,底层将自动生成一个)
+	SubAcctNo         string // required(32), 子账户账号
+	TranNetMemberCode string // required(32), 交易网会员代码
+	MemberName        string // required(120), 会员名称
+	CompanyName       string // optional(120), 公司名称
+	ReprName          string // optional(120), 法人名称
+	ReprGlobalType    string // optional(32), 法人证件类型
+	ReprGlobalId      string // optional(32), 法人证件号码
+	ReservedMsg       string // optional(120), 保留域
+}
+
 /************************************* 交易 ************************************/
 
 type MemberTransactionReq struct {
@@ -1086,4 +1098,34 @@ type ChargeDetailQueryRsp struct {
 	OrderActInSubAcctName string
 	FrontSeqNo            string
 	TranDesc              string
+}
+
+type EJZBCustInformationQueryReq struct {
+	CnsmrSeqNo  string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
+	CustAcctId  string // required(32), 子台账账号
+	ThirdCustId string // required(32), 交易网会员代码
+	Reserve     string // optional(100), 保留域
+}
+
+type EJZBCustInformationQueryRsp struct {
+	CustAcctId   string // 子台账账号
+	ThirdCustId  string // 交易网会员代码
+	CustName     string // 会员名称
+	IdType       string // 会员证件类型
+	IdCode       string // 会员证件号码
+	ClientLvl    string // 会员属性
+	NickName     string // 用户昵称
+	MobilePhone  string // 手机号码
+	BusinessFlag string // 个体工商户标志
+	ComepanyName string // 公司名称
+	CreditidCode string // 公司证件号码
+	StoreId      string // 店铺编
+	StoreName    string // 店铺名称
+	LegalFlag    string // 法人标志
+	LegalName    string // 法人名称
+	CPFlag       string // 实名认证标识
+	OrangePay    string // 是否有登记行为记录信息, S:是,F:否
+	LecertiType  string // 法人证件类型
+	LecertiCode  string // 法人证件号码
+	Reserve      string // 保留域
 }

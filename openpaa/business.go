@@ -115,6 +115,13 @@ func (c *Client) RcvMntMbrInfoApply(ctx context.Context, req *RcvMntMbrInfoApply
 	return Invoke[RcvMntMbrInfoApplyReq, ResponseReserved](c, ctx, KFEJZB6171, req)
 }
 
+// MemberInformationChange 会员信息修改
+// 企业用户支持修改会员名称、公司名称、法人名称、法人证件类型、法人证件号码,个人用户只支持修改会员名称,
+// 接口暂不支持个体工商户,若企业同名户为个体工商户,不解绑提现账户,不更新同名户信息,若个人同名户为个体工商户,解绑提现账户,不更新同名户信息
+func (c *Client) MemberInformationChange(ctx context.Context, req *MemberInformationChangeReq) (*ResponseReserved, error) {
+	return Invoke[MemberInformationChangeReq, ResponseReserved](c, ctx, KFEJZB6171, req)
+}
+
 /************************************* 交易 ************************************/
 
 // AccountRegulation 调账-见证收单
@@ -281,4 +288,9 @@ func (c *Client) ReconciliationDocumentQuery(ctx context.Context, req *Reconcili
 // ChargeDetailQuery 查询充值明细交易的状态-见证收单
 func (c *Client) ChargeDetailQuery(ctx context.Context, req *ChargeDetailQueryReq) (*ChargeDetailQueryRsp, error) {
 	return Invoke[ChargeDetailQueryReq, ChargeDetailQueryRsp](c, ctx, KFEJZB6146, req)
+}
+
+// EJZBCustInformationQuery 见证子台账信息查询接口，支持产业结算通平台调用，查询子台账开立和补录的信息。
+func (c *Client) EJZBCustInformationQuery(ctx context.Context, req *EJZBCustInformationQueryReq) (*EJZBCustInformationQueryRsp, error) {
+	return Invoke[EJZBCustInformationQueryReq, EJZBCustInformationQueryRsp](c, ctx, KFEJZB6324, req)
 }

@@ -13,11 +13,12 @@ func (c *Client) AutonymOpenCustAcctId(ctx context.Context, req *AutonymOpenCust
 // MntMbrBindSameRealCustNameAcct 实名开同名账户关联关系维护
 // 1：可用于6248接口实名开同名账户关联关系维护:
 // 2：非自营市场可通过本接口
-//          分支1. 申请开立商户子账户和普通会员子账户
-//          分支2. 申请为已有的商户子账户开立关联的同名的普通会员子账户
-//          分支3. 申请为已有的普通会员子账户开立关联的同名的商户子账户
-//          分支4. 查询两个会员子账户是否存在同名账户关系
-//          分支5. 维护两个子台帐信息一致的SH和00户为同名户关系
+//
+//	分支1. 申请开立商户子账户和普通会员子账户
+//	分支2. 申请为已有的商户子账户开立关联的同名的普通会员子账户
+//	分支3. 申请为已有的普通会员子账户开立关联的同名的商户子账户
+//	分支4. 查询两个会员子账户是否存在同名账户关系
+//	分支5. 维护两个子台帐信息一致的SH和00户为同名户关系
 func (c *Client) MntMbrBindSameRealCustNameAcct(ctx context.Context, req *MntMbrBindSameRealCustNameAcctReq) (*MntMbrBindSameRealCustNameAcctRsp, error) {
 	return Invoke2[MntMbrBindSameRealCustNameAcctReq, MntMbrBindSameRealCustNameAcctRsp](c, ctx, KFEJZB6293, req)
 }
@@ -43,9 +44,10 @@ func (c *Client) CheckMsgCodeWithCorp(ctx context.Context, req *CheckMsgCodeWith
 // BindSmallAmountWithCheckCorp 会员绑定提现账户小额鉴权-校验法人
 // 该接口发起成功后，银行会向提现账户转入小于等于0.5元的随机金额，并短信通知客户查看，客户查看后，需将收到的金额大小，
 // 在电商平台页面上回填，并通知银行。银行验证通过后，完成提现账户绑定。
-//  - 企业对公账户只能使用小额鉴权绑卡
-//  - 企业与个体工商户增加校验工商五要素
-//  - 五要素校验: 姓名,证件,卡号,银行预留手机以及校验个体工商户
+//   - 企业对公账户只能使用小额鉴权绑卡
+//   - 企业与个体工商户增加校验工商五要素
+//   - 五要素校验: 姓名,证件,卡号,银行预留手机以及校验个体工商户
+//
 // NOTE:
 //  1. 大小额联行号和超级网银号的上送说明
 //     - 本行账户（平安银行）：大小额行号和超级网银号都不用送
@@ -111,6 +113,13 @@ func (c *Client) RevRegisterBillSupportWithdraw(ctx context.Context, req *RevReg
 // RcvMntMbrInfoApply 受理维护会员信息申请
 func (c *Client) RcvMntMbrInfoApply(ctx context.Context, req *RcvMntMbrInfoApplyReq) (*ResponseReserved, error) {
 	return Invoke2[RcvMntMbrInfoApplyReq, ResponseReserved](c, ctx, KFEJZB6171, req)
+}
+
+// MemberInformationChange 会员信息修改
+// 企业用户支持修改会员名称、公司名称、法人名称、法人证件类型、法人证件号码,个人用户只支持修改会员名称,
+// 接口暂不支持个体工商户,若企业同名户为个体工商户,不解绑提现账户,不更新同名户信息,若个人同名户为个体工商户,解绑提现账户,不更新同名户信息
+func (c *Client) MemberInformationChange(ctx context.Context, req *MemberInformationChangeReq) (*ResponseReserved, error) {
+	return Invoke2[MemberInformationChangeReq, ResponseReserved](c, ctx, KFEJZB6171, req)
 }
 
 /************************************* 交易 ************************************/
@@ -279,4 +288,9 @@ func (c *Client) ReconciliationDocumentQuery(ctx context.Context, req *Reconcili
 // ChargeDetailQuery 查询充值明细交易的状态-见证收单
 func (c *Client) ChargeDetailQuery(ctx context.Context, req *ChargeDetailQueryReq) (*ChargeDetailQueryRsp, error) {
 	return Invoke2[ChargeDetailQueryReq, ChargeDetailQueryRsp](c, ctx, KFEJZB6146, req)
+}
+
+// EJZBCustInformationQuery 见证子台账信息查询接口，支持产业结算通平台调用，查询子台账开立和补录的信息。
+func (c *Client) EJZBCustInformationQuery(ctx context.Context, req *EJZBCustInformationQueryReq) (*EJZBCustInformationQueryRsp, error) {
+	return Invoke2[EJZBCustInformationQueryReq, EJZBCustInformationQueryRsp](c, ctx, KFEJZB6324, req)
 }

@@ -23,7 +23,7 @@ const (
 	KFEJZB6145 = "KFEJZB6145" // 6145 调账-见证收单
 	KFEJZB6147 = "KFEJZB6147" // 6147 平台补账-见证收单
 	KFEJZB6171 = "KFEJZB6171" // 6171 受理维护会员信息申请
-
+	KFEJZB6296 = "KFEJZB6296" // 6296 会员信息修改
 	// 交易
 	KFEJZB6034 = "KFEJZB6034" // 6034 会员间交易 - 不验证
 	KFEJZB6033 = "KFEJZB6033" // 6033 会员提现 - 不验证
@@ -52,7 +52,7 @@ const (
 	KFEJZB6142 = "KFEJZB6142" // 6142 查询明细单验证码
 	KFEJZB6103 = "KFEJZB6103" // 6103 查询对账文件信息
 	KFEJZB6146 = "KFEJZB6146" // 6146 查询充值明细的交易状态-见证收单
-
+	KFEJZB6324 = "KFEJZB6324" // 6324 见证子台帐信息查询
 	// 测试使用
 	KFEJZB6211 = "KFEJZB6211" // 6211 指定转账划款
 )
@@ -76,6 +76,7 @@ var mappingServiceId = map[string]string{
 	KFEJZB6145: "AccountRegulation",
 	KFEJZB6147: "PlatformAccountSupply",
 	KFEJZB6171: "RcvMntMbrInfoAply",
+	KFEJZB6296: "MemberInformationChange",
 	// 交易
 	KFEJZB6034: "MemberTransaction",
 	KFEJZB6033: "MembershipWithdrawCash",
@@ -105,6 +106,7 @@ var mappingServiceId = map[string]string{
 	KFEJZB6103: "ReconciliationDocumentQuery",
 	KFEJZB6146: "ChargeDetailQuery",
 	KFEJZB6211: "ApntTransfer",
+	KFEJZB6324: "EJZBCustInformationQuery",
 }
 
 // RegisterServiceId registered before it's registered'
