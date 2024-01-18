@@ -119,7 +119,7 @@ func (c *Client) RcvMntMbrInfoApply(ctx context.Context, req *RcvMntMbrInfoApply
 // 企业用户支持修改会员名称、公司名称、法人名称、法人证件类型、法人证件号码,个人用户只支持修改会员名称,
 // 接口暂不支持个体工商户,若企业同名户为个体工商户,不解绑提现账户,不更新同名户信息,若个人同名户为个体工商户,解绑提现账户,不更新同名户信息
 func (c *Client) MemberInformationChange(ctx context.Context, req *MemberInformationChangeReq) (*ResponseReserved, error) {
-	return Invoke[MemberInformationChangeReq, ResponseReserved](c, ctx, KFEJZB6171, req)
+	return Invoke[MemberInformationChangeReq, ResponseReserved](c, ctx, KFEJZB6296, req)
 }
 
 /************************************* 交易 ************************************/
