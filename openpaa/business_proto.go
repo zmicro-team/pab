@@ -400,11 +400,11 @@ type MemberInformationChangeReq struct {
 	SubAcctNo         string // required(32), 子账户账号
 	TranNetMemberCode string // required(32), 交易网会员代码
 	MemberName        string // required(120), 会员名称
-	CompanyName       string // optional(120), 公司名称
-	ReprName          string // optional(120), 法人名称
-	ReprGlobalType    string // optional(32), 法人证件类型
-	ReprGlobalId      string // optional(32), 法人证件号码
-	ReservedMsg       string // optional(120), 保留域
+	CompanyName       string `json:",omitempty"` // optional(120), 公司名称
+	ReprName          string `json:",omitempty"` // optional(120), 法人名称
+	ReprGlobalType    string `json:",omitempty"` // optional(32), 法人证件类型
+	ReprGlobalId      string `json:",omitempty"` // optional(32), 法人证件号码
+	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
 }
 
 /************************************* 交易 ************************************/
@@ -1104,7 +1104,7 @@ type EJZBCustInformationQueryReq struct {
 	CnsmrSeqNo  string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
 	CustAcctId  string // required(32), 子台账账号
 	ThirdCustId string // required(32), 交易网会员代码
-	Reserve     string // optional(100), 保留域
+	Reserve     string `json:",omitempty"` // optional(100), 保留域
 }
 
 type EJZBCustInformationQueryRsp struct {
