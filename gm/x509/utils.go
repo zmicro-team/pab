@@ -12,7 +12,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 )
 
 func ReadPrivateKeyFromPem(privateKeyPem []byte, pwd []byte) (*sm2.PrivateKey, error) {

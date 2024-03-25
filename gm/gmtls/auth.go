@@ -23,7 +23,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 )
 
 // pickSignatureAlgorithm selects a signature algorithm that is compatible with

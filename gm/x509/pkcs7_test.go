@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 )
 
 func TestPKCS7SM2(t *testing.T) {

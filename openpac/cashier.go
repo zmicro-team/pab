@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/schema"
 
-	"github.com/things-go/pab/utils"
+	"github.com/zmicro-team/pab/utils"
 )
 
 const tpl = `

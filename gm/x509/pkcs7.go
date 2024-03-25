@@ -19,7 +19,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 )
 
 // PKCS7 Represents a PKCS7 structure

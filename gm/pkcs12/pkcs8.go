@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 )
 
 type pkcs8 struct { // Duplicated from x509 package

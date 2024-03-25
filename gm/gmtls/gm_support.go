@@ -15,10 +15,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/things-go/pab/gm/sm2"
-	"github.com/things-go/pab/gm/sm3"
-	"github.com/things-go/pab/gm/sm4"
-	"github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm3"
+	"github.com/zmicro-team/pab/gm/sm4"
+	"github.com/zmicro-team/pab/gm/x509"
 )
 
 const VersionGMSSL = 0x0101 // GM/T 0024-2014

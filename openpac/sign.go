@@ -3,7 +3,7 @@ package openpac
 import (
 	"crypto/rsa"
 
-	"github.com/things-go/pab/utils"
+	"github.com/zmicro-team/pab/utils"
 )
 
 func innerNeedMap(parent string, in map[string]any, out map[string]string) {

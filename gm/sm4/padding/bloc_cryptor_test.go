@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/things-go/pab/gm/sm4"
+	"github.com/zmicro-team/pab/gm/sm4"
 )
 
 func TestP7BlockDecrypt(t *testing.T) {

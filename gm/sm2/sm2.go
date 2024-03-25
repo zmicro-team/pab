@@ -27,7 +27,7 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/things-go/pab/gm/sm3"
+	"github.com/zmicro-team/pab/gm/sm3"
 )
 
 var (

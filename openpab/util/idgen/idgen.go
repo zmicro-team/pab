@@ -1,7 +1,7 @@
 package idgen
 
 import (
-	"github.com/things-go/pab/openpab/util/idgen/snowflake"
+	"github.com/zmicro-team/pab/openpab/util/idgen/snowflake"
 )
 
 var sf *snowflake.Snowflake

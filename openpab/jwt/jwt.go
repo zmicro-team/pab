@@ -9,7 +9,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 )
 
 type sm2Signature struct {

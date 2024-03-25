@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/things-go/pab/filecipher"
+	"github.com/zmicro-team/pab/filecipher"
 )
 
 /**

@@ -24,7 +24,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 )
 
 func TestX509(t *testing.T) {

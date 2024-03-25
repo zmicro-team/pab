@@ -1,4 +1,4 @@
-module github.com/things-go/pab
+module github.com/zmicro-team/pab
 
 go 1.18
 
@@ -8,7 +8,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/spf13/cast v1.6.0
 	github.com/stretchr/testify v1.8.2
-	github.com/things-go/x v0.1.1
 	github.com/tidwall/gjson v1.17.0
 	golang.org/x/crypto v0.17.0
 	golang.org/x/exp v0.0.0-20231214170342-aacd6d4b4611

@@ -22,8 +22,8 @@ import (
 	"errors"
 	"io/ioutil"
 
-	"github.com/things-go/pab/gm/sm2"
-	x "github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/sm2"
+	x "github.com/zmicro-team/pab/gm/x509"
 )
 
 var (

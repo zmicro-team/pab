@@ -26,7 +26,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/x509"
 )
 
 // A Conn represents a secured connection.

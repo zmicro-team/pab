@@ -40,9 +40,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/things-go/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm2"
 
-	"github.com/things-go/pab/gm/sm3"
+	"github.com/zmicro-team/pab/gm/sm3"
 
 	"golang.org/x/crypto/ripemd160"
 	"golang.org/x/crypto/sha3"

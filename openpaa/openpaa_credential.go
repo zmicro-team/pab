@@ -6,7 +6,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/things-go/x/extrand"
+	"github.com/zmicro-team/pab/extrand"
 )
 
 type CredentialResponse struct {

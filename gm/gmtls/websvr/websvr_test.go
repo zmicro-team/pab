@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/x509"
 
-	"github.com/things-go/pab/gm/gmtls"
+	"github.com/zmicro-team/pab/gm/gmtls"
 )
 
 const (

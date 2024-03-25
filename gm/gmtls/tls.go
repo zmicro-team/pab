@@ -29,8 +29,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/things-go/pab/gm/sm2"
-	X "github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/sm2"
+	X "github.com/zmicro-team/pab/gm/x509"
 )
 
 // Server returns a new TLS server side connection

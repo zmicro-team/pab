@@ -14,8 +14,8 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/things-go/pab/gm/sm2"
-	"github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/x509"
 
 	"golang.org/x/crypto/curve25519"
 )

@@ -29,7 +29,7 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/x509"
 )
 
 type clientHandshakeState struct {

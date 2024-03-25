@@ -7,9 +7,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/things-go/pab/gm/sm2"
-	"github.com/things-go/pab/gm/sm4"
-	"github.com/things-go/pab/openpab/util"
+	"github.com/zmicro-team/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/sm4"
+	"github.com/zmicro-team/pab/openpab/util"
 )
 
 var mu sync.Mutex

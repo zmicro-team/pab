@@ -13,13 +13,13 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/things-go/x/extrand"
 	"github.com/tidwall/gjson"
+	"github.com/zmicro-team/pab/extrand"
 	"golang.org/x/sync/singleflight"
 
-	"github.com/things-go/pab/cert"
-	"github.com/things-go/pab/plog"
-	"github.com/things-go/pab/trace"
+	"github.com/zmicro-team/pab/cert"
+	"github.com/zmicro-team/pab/plog"
+	"github.com/zmicro-team/pab/trace"
 )
 
 type Config struct {

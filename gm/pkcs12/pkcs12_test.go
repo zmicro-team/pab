@@ -11,8 +11,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/things-go/pab/gm/sm2"
-	"github.com/things-go/pab/gm/x509"
+	"github.com/zmicro-team/pab/gm/sm2"
+	"github.com/zmicro-team/pab/gm/x509"
 )
 
 func Test_P12Encrypt(t *testing.T) {

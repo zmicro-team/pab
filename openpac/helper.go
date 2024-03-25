@@ -5,7 +5,7 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/things-go/pab/utils"
+	"github.com/zmicro-team/pab/utils"
 )
 
 func struct2Map(in any) (map[string]string, error) {

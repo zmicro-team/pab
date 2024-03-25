@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/things-go/pab/filecipher"
-	"github.com/things-go/pab/openpab/jwt"
+	"github.com/zmicro-team/pab/filecipher"
+	"github.com/zmicro-team/pab/openpab/jwt"
 )
 
 /**

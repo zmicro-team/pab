@@ -1,8 +1,8 @@
 package openpab
 
 import (
-	"github.com/things-go/pab/gm/sm2"
-	"github.com/things-go/pab/openpab/jwt/variant"
+	"github.com/zmicro-team/pab/gm/sm2"
+	"github.com/zmicro-team/pab/openpab/jwt/variant"
 )
 
 func encryptDataWithSM4(kid string, publicKey *sm2.PublicKey, plainText string) (string, error) {

@@ -12,14 +12,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/things-go/x/extrand"
 	"github.com/tidwall/gjson"
+	"github.com/zmicro-team/pab/extrand"
 
-	"github.com/things-go/pab/gm/sm2"
-	"github.com/things-go/pab/openpab/jwt"
-	"github.com/things-go/pab/openpab/util/idgen"
-	"github.com/things-go/pab/plog"
-	"github.com/things-go/pab/trace"
+	"github.com/zmicro-team/pab/gm/sm2"
+	"github.com/zmicro-team/pab/openpab/jwt"
+	"github.com/zmicro-team/pab/openpab/util/idgen"
+	"github.com/zmicro-team/pab/plog"
+	"github.com/zmicro-team/pab/trace"
 
 	"golang.org/x/sync/singleflight"
 )
