@@ -29,8 +29,8 @@ func (c *Client) QueryCustAcctIdByThirdCustId(ctx context.Context, req *QueryCus
 	return Invoke[QueryCustAcctIdByThirdCustIdReq, QueryCustAcctIdByThirdCustIdRsp](c, ctx, KFEJZB6092, req)
 }
 
-// BindUnionPayWithCheckCorp 会员绑定提现账户银联鉴权-校验法人
-// 此鉴权用户: 1、纯个人 2、个体工商户
+// BindUnionPayWithCheckCorp 会员绑定提现账户银联鉴权-校验法人 
+// 此鉴权用户: 1、纯个人 2、个体工商户               !注意(绑定对公户,请使用小额鉴权)
 func (c *Client) BindUnionPayWithCheckCorp(ctx context.Context, req *BindUnionPayWithCheckCorpReq) (*ResponseReserved, error) {
 	return Invoke[BindUnionPayWithCheckCorpReq, ResponseReserved](c, ctx, KFEJZB6238, req)
 }

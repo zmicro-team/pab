@@ -26,6 +26,53 @@ type AutonymOpenCustAcctIdReq struct {
 	UserNickname      string `json:",omitempty"` // optional(120), 用户昵称
 	Mobile            string // required(12), 手机号(测试环境送11个1)
 	MemberProperty    string // required(2), 会员属性, SH: 商户子账户, 00: 普通子账户
+	IndivBusinessFlag string // 个体工商户标志	string(1)	N	2	1：是 2：否(个人必输)
+	// CompanyName	公司名称	string(120)	N	xxxx有限责任公司	个体工商户必输
+	CompanyName string `json:",omitempty"` // optional(120), 公司名称
+	// CompanyGlobalType	公司证件类型	string(4)	N	73	"个体工商户必输
+	// 73-统一社会信用代码证号"
+	CompanyGlobalType string `json:",omitempty"` // optional(4), 公司证件类型
+	// CompanyGlobalId	公司证件号码	string(32)	N	111199011112888	个体工商户必输
+	CompanyGlobalId string `json:",omitempty"` // optional(32), 公司证件号码
+	// ShopId	店铺id	string(32)	N	111199011	个体工商户必输
+	ShopId string `json:",omitempty"` // optional(32), 店铺id
+	// ShopName	店铺名称	string(120)	N	xxxx店铺	个体工商户必输
+	ShopName string `json:",omitempty"` // optional(120), 店铺名称
+	// RepFlag	法人标志	string(1)	N	1	1-是
+	RepFlag string // required(1), 法人标志, 1: 是, 2: 否
+	// ReprName	法人名称	string(120)	N	张三	个体工商户必输
+	ReprName string `json:",omitempty"` // optional(120), 法人名称
+	// ReprGlobalType	法人证件类型	string(32)	N	1	个体工商户必输
+	ReprGlobalType string `json:",omitempty"` // optional(4), 法人证件类型
+	// ReprGlobalId	法人证件号码	string(32)	N	430111199011112888	个体工商户必输
+	ReprGlobalId string `json:",omitempty"` // optional(32), 法人证件号码
+	// ReservedMsg	保留域	string(120)	N
+	ReservedMsg string `json:",omitempty"` // optional(120), 保留域
+	// Address	地址	string(120)	N	广东省深圳市	地址信息
+	Address string `json:",omitempty"` // optional(120), 地址信息
+	// clientId	客户注册码	STRING(120)	N		该值由开放银行侧赋值
+	// RuleFlag	角色标识	STRING(32)	N	门店-LSMD	"在开户时上送角色标识
+	// 平台价保-PTJB
+	// 合伙人-HHR
+	// 门店-LSMD
+	// 法人-LSFR
+	// 绑卡人-LSBR "
+	RuleFlag string `json:",omitempty"` // optional(32), 角色标识标志
+	// ShMemberSubAcctNo	普通商户子台账	string(32)	3373000000006031	3373000000006031	角色标识标志为平台价保-PTJB时，该字段必输
+	ShMemberSubAcctNo string `json:",omitempty"` // optional(32), 普通商户子台账
+}
+
+type OldAutonymOpenCustAcctIdReq struct {
+	// FundSummaryAcctNo string // required(32), 资金监管账号(底层已实现)
+	CnsmrSeqNo        string // optional(22),交易网业务流水号(如果未设置,底层将自动生成一个)
+	FunctionFlag      string // required(1), 功能标志, 1: 开户, 2: 销户, 3: 存量实名
+	TranNetMemberCode string // required(32), 交易网会员代码(即在平台端系统的会员编号)
+	MemberName        string // required(120), 客户真实姓名(销户时可选)
+	MemberGlobalType  string // required(2), 会员证件类型
+	MemberGlobalId    string // required(20), 证件号码(销户时可选)
+	UserNickname      string `json:",omitempty"` // optional(120), 用户昵称
+	Mobile            string // required(12), 手机号(测试环境送11个1)
+	MemberProperty    string // required(2), 会员属性, SH: 商户子账户, 00: 普通子账户
 	ReservedMsg       string `json:",omitempty"` // optional(120), 保留域
 }
 

@@ -7,6 +7,13 @@ const (
 	FFAutonymOpenAccountClose = "2" // 销户
 	FFAutonymOpenAccountStock = "3" // 存量实名
 
+	// 6248 开户 - 角色标识标志
+	FFRuleFlagPTJB = "PTJB" // 平台价保-PTJB
+	FFRuleFlagHHR = "HHR" // 合伙人-HHR
+	FFRuleFlagLSMD = "LSMD" // 门店-LSMD
+	FFRuleFlagLSFR = "LSFR" // 法人-LSFR
+	FFRuleFlagLSBR = "LSBR" // 绑卡人-LSBR
+
 	// 6293 实名开同名账户关联关系维护的 - 功能标志
 	FFMntMbrBindAccountSame     = "1" // 申请开立商户子账户和普通会员子账户
 	FFMntMbrBindAccountCommon   = "2" // 申请为已有的商户子账户开立关联的同名的普通会员子账户
