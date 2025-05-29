@@ -23,6 +23,14 @@ type ResponseData struct {
 	TokenExpiryFlag string `json:"tokenExpiryFlag"`
 }
 
+func (r ResponseData) IsSuccess() bool {
+	return r.HasSameReturnCode(Success)
+}
+
+func (r ResponseData) HasSameReturnCode(code string) bool {
+	return r.TxnReturnCode == code
+}
+
 // R: request type
 // T: response type
 // NOTE: req 的 CnsmrSeqNo 交易网业务流水号必须存在
